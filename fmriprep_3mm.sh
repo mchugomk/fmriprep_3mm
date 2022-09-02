@@ -21,9 +21,6 @@ mem=24000													# run with 24GB memory
 output_space=MNI152NLin6Asym3mm								# MNI template in 3mm resolution
 template_resolution=res-01									# need to specify this to get 3mm resolution
 
-date
-now=`date +"%Y%m%d%H%M%S"` 
-
 
 ## Process command line arguments
 usage(){ echo "Usage: `basename $0` -b <bids_dir> -p <participant_id> -t <task_id> 
@@ -59,6 +56,9 @@ while getopts "b:p:t:" opt; do
     esac
 done
 shift $((OPTIND-1))
+
+date
+now=`date +"%Y%m%d%H%M%S"` 
 
 
 ## Specify output folders
