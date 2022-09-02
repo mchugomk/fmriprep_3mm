@@ -10,7 +10,7 @@
 ## Site specific variables to specify template data folders and license files
 templateflow_dir=$HOME/.cache/templateflow					# templateflow directory with custom template
 fs_license=$HOME/.licenses/freesurfer/license.txt			# freesurfer license location
-work_dir=$HOME/work 										# working directory
+work_dir=$HOME/work											# working directory
 
 
 ## Define site specific options for fmriprep
