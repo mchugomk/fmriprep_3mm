@@ -112,7 +112,6 @@ echo "docker run --rm -e DOCKER_VERSION_8395080871=20.10.17 -it \
 -v ${output_dir}:/out \
 -v ${templateflow_dir}/tpl-${output_space}:/home/fmriprep/.cache/templateflow/tpl-${output_space}:ro \
 -v ${output_dir}/sourcedata/freesurfer:/opt/subjects \
--v ${bids_filter_file}:/tmp/bids_filter_file.json \
 -v ${work_dir}:/scratch \
 nipreps/fmriprep:${fmriprep_version} /data /out participant \
 --participant-label $participant_id \
@@ -120,7 +119,6 @@ nipreps/fmriprep:${fmriprep_version} /data /out participant \
 -t $task_id \
 --nprocs $nprocs \
 --mem $mem \
---bids-filter-file /tmp/bids_filter_file.json \
 --skip_bids_validation \
 --fs-subjects-dir /opt/subjects \
 --ignore slicetiming \
@@ -138,7 +136,6 @@ docker run --rm -e DOCKER_VERSION_8395080871=20.10.17 -it \
 	-v ${output_dir}:/out \
 	-v ${templateflow_dir}/tpl-${output_space}:/home/fmriprep/.cache/templateflow/tpl-${output_space}:ro \
 	-v ${output_dir}/sourcedata/freesurfer:/opt/subjects \
-	-v ${bids_filter_file}:/tmp/bids_filter_file.json \
 	-v ${work_dir}:/scratch \
 	nipreps/fmriprep:${fmriprep_version} /data /out participant \
 		--participant-label $participant_id \
@@ -146,7 +143,6 @@ docker run --rm -e DOCKER_VERSION_8395080871=20.10.17 -it \
 		-t $task_id \
 		--nprocs $nprocs \
 		--mem $mem \
-		--bids-filter-file /tmp/bids_filter_file.json \
 		--skip_bids_validation \
 		--fs-subjects-dir /opt/subjects \
 		--ignore slicetiming \
