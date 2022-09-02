@@ -1,0 +1,24 @@
+{
+	"Identifier": "MNI152NLin6Asym3mm",
+	"TemplateFlowVersion": "1.0.0",
+	"res": {
+        	"01": {
+				"origin": [
+					-87.0, 
+					-126.0, 
+					-72.0
+				],
+        		"shape": [
+        			60, 
+        			72, 
+        			60
+        		],
+        		"zooms": [
+        			3.0, 
+        			3.0, 
+        			3.0
+        		]
+        }
+    }
+}
+
