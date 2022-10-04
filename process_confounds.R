@@ -12,8 +12,11 @@
 library(tidyverse)  
 library(readxl)     
 
+
+rad2deg <- function(radians){radians*(180/pi)}
+
 process_confounds <- function(fmriprep_dir){
-  
+
   confound_data_filename <- file.path(fmriprep_dir, "confound_data_summary.csv")                # output file for data extracted from confound files
   confound_pattern <- ".*confounds_timeseries.tsv$"                                             # regexp pattern for fmriprep confound files
   
@@ -30,14 +33,16 @@ process_confounds <- function(fmriprep_dir){
     map_df(read_tsv, na="n/a", .id = "source") %>%
     mutate(fname=basename(source)) %>%
     separate(fname, c("subject_id","session_id","task_id","run_id","tmp1","tmp2"), sep = "_") %>%
-    select(-c(source,tmp1,tmp2))
+    select(-c(source,tmp1,tmp2)) %>%
+    mutate(rot_x_deg=rad2deg(rot_x), rot_y_deg=rad2deg(rot_y), rot_z_deg=rad2deg(rot_z))
   
   ## Calculate summary stats for motion parameters 
   confound_data.df.summary <- confound_data.df %>%
-    select(c(subject_id:run_id, trans_x, trans_y, trans_z, rot_x, rot_y, rot_z, framewise_displacement, dvars)) %>%
+    select(c(subject_id:run_id, trans_x, trans_y, trans_z, rot_x, rot_y, rot_z, rot_x_deg, rot_y_deg, rot_z_deg, framewise_displacement, dvars)) %>%
     group_by(subject_id, session_id, task_id, run_id) %>%
-    summarise_if(is.numeric, list(min=min, max=max, mean=mean, sd=sd, median=median), na.rm=T)
+    summarise_if(is.numeric, list(min=min, max=max, mean=mean, sd=sd, median=median), na.rm=T) 
   
   write_csv(confound_data.df.summary, confound_data_filename)
   
 }
+  
