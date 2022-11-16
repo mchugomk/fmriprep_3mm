@@ -15,7 +15,7 @@ work_dir=$HOME/work											# working directory
 
 ## Define site specific options for fmriprep
 # output_space="MNI152NLin6Asym:res-2 MNI152NLin2009cAsym" 	# normalization output space
-fmriprep_version=22.0.0										# fmriprep version to run
+fmriprep_version=22.0.2										# fmriprep version to run
 nprocs=16 													# run with 16 cores
 mem=8000													# run with 8GB memory
 output_space=MNI152NLin6Asym								# MNI template with added 3mm resolution
