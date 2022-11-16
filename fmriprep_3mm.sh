@@ -17,9 +17,9 @@ work_dir=$HOME/work											# working directory
 # output_space="MNI152NLin6Asym:res-2 MNI152NLin2009cAsym" 	# normalization output space
 fmriprep_version=22.0.0										# fmriprep version to run
 nprocs=16 													# run with 16 cores
-mem=24000													# run with 24GB memory
-output_space=MNI152NLin6Asym3mm								# MNI template in 3mm resolution
-template_resolution=res-01									# need to specify this to get 3mm resolution
+mem=8000													# run with 8GB memory
+output_space=MNI152NLin6Asym								# MNI template with added 3mm resolution
+template_resolution=res-02:res-07							# need to specify this to get 2mm and 3mm resolution
 
 
 ## Process command line arguments
@@ -105,7 +105,8 @@ date > $fmriprep_logfile # Overwrite existing log file
 
 echo "Running $0 for $participant_id $task_id" >> $fmriprep_logfile
 
-# remove for testing: --omp-nthreads $nprocs \
+
+# Dont --skip_bids_validation \
 echo "docker run --rm -e DOCKER_VERSION_8395080871=20.10.17 -it \
 -v ${fs_license}:/opt/freesurfer/license.txt:ro \
 -v ${bids_dir}:/data:ro \
@@ -119,7 +120,6 @@ nipreps/fmriprep:${fmriprep_version} /data /out participant \
 -t $task_id \
 --nprocs $nprocs \
 --mem $mem \
---skip_bids_validation \
 --fs-subjects-dir /opt/subjects \
 --ignore slicetiming \
 --use-aroma \
@@ -129,7 +129,7 @@ nipreps/fmriprep:${fmriprep_version} /data /out participant \
 -w /scratch 
 " >> $fmriprep_logfile
 
-
+# Don't	--skip_bids_validation \
 docker run --rm -e DOCKER_VERSION_8395080871=20.10.17 -it \
 	-v ${fs_license}:/opt/freesurfer/license.txt:ro \
 	-v ${bids_dir}:/data:ro \
@@ -143,7 +143,6 @@ docker run --rm -e DOCKER_VERSION_8395080871=20.10.17 -it \
 		-t $task_id \
 		--nprocs $nprocs \
 		--mem $mem \
-		--skip_bids_validation \
 		--fs-subjects-dir /opt/subjects \
 		--ignore slicetiming \
 		--use-aroma \
